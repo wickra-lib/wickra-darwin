@@ -1,0 +1,9 @@
+{
+  "name": "wickra-darwin-example-node",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A runnable Node.js example for wickra-darwin.",
+  "type": "commonjs",
+  "scripts": { "start": "node evolve.js" },
+  "dependencies": { "wickra-darwin": "^0.1.0" }
+}

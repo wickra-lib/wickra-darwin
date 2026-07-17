@@ -1,0 +1,17 @@
+[package]
+name = "wickra-darwin-example"
+description = "A runnable Rust example for the Wickra Darwin evolutionary search."
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# Detached from the parent workspace so the example builds on its own.
+[workspace]
+
+[[bin]]
+name = "evolve"
+path = "src/main.rs"
+
+[dependencies]
+darwin-core = { path = "../../crates/darwin-core", default-features = false }
+serde_json = "1"

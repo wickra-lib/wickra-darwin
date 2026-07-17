@@ -1,0 +1,4 @@
+useDynLib(wickradarwin, .registration = TRUE, .fixes = "C_")
+export(wkdarwin_version)
+export(wkdarwin_new)
+export(wkdarwin_command)

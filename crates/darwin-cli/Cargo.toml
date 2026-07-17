@@ -6,7 +6,7 @@ rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 authors.workspace = true
-description = "The wickra-darwin reference CLI (scaffold)."
+description = "The wickra-darwin reference CLI: evolve strategies from candle data."
 
 [[bin]]
 name = "wickra-darwin"
@@ -14,6 +14,9 @@ path = "src/main.rs"
 
 [dependencies]
 darwin-core = { path = "../darwin-core", version = "0.1" }
+wickra-backtest = { workspace = true }
+serde_json = { workspace = true }
+clap = { workspace = true }
 
 [lints]
 workspace = true

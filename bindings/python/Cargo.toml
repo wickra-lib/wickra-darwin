@@ -1,16 +1,22 @@
 [package]
-name = "darwin-python"
+name = "wickra-darwin-python"
+description = "Python bindings for wickra-darwin: evolutionary strategy search over Wickra strategy specs."
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 authors.workspace = true
-description = "Wickra Darwin — python binding (scaffold)."
+readme = "README.md"
 publish = false
 
-[dependencies]
-darwin-core = { path = "../../crates/darwin-core", version = "0.1" }
+[lib]
+name = "_wickra_darwin"
+crate-type = ["cdylib"]
 
 [lints]
 workspace = true
+
+[dependencies]
+darwin-core = { path = "../../crates/darwin-core", version = "0.1" }
+pyo3 = { version = "0.29", features = ["extension-module", "abi3-py39"] }

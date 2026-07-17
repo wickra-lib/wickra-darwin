@@ -34,6 +34,16 @@ add_executable(evolvepp evolve.cpp)
 target_include_directories(evolvepp PRIVATE "${WICKRA_DARWIN_INCLUDE}")
 target_link_libraries(evolvepp PRIVATE "${WICKRA_DARWIN_LIB}")
 
+# Both examples build the demo sine universe with sin() from <math.h>. On Linux
+# libm is a separate object that ld does not pull in implicitly, so link it
+# explicitly. macOS folds libm into libSystem and Windows into the CRT, where
+# the linker resolves it without a flag — but linking m there is a harmless
+# no-op, so guard only against Windows.
+if(NOT WIN32)
+    target_link_libraries(evolve PRIVATE m)
+    target_link_libraries(evolvepp PRIVATE m)
+endif()
+
 # On Windows the runtime DLL must sit next to the executable (there is no rpath);
 # without it the loader pops a modal "DLL not found" dialog that hangs ctest. Copy
 # it next to each example after build. (Unix resolves the .so/.dylib via the

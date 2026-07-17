@@ -1,0 +1,16 @@
+[package]
+name = "darwin-bench"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Criterion benchmarks for wickra-darwin (scaffold)."
+publish = false
+
+[dependencies]
+darwin-core = { path = "../darwin-core", version = "0.1" }
+
+[lints]
+workspace = true

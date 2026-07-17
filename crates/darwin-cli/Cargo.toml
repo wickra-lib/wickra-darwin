@@ -1,0 +1,19 @@
+[package]
+name = "darwin-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "The wickra-darwin reference CLI (scaffold)."
+
+[[bin]]
+name = "wickra-darwin"
+path = "src/main.rs"
+
+[dependencies]
+darwin-core = { path = "../darwin-core", version = "0.1" }
+
+[lints]
+workspace = true

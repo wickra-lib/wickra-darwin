@@ -1,0 +1,16 @@
+[package]
+name = "darwin-wasm"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Wickra Darwin — wasm binding (scaffold)."
+publish = false
+
+[dependencies]
+darwin-core = { path = "../../crates/darwin-core", version = "0.1" }
+
+[lints]
+workspace = true

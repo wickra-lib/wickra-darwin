@@ -1,0 +1,15 @@
+[package]
+name = "darwin-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Evolutionary strategy search over Wickra strategy specs (scaffold)."
+
+[dependencies]
+wickra-backtest = { workspace = true }
+
+[lints]
+workspace = true

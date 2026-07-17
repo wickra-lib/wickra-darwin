@@ -1,0 +1,7 @@
+# Seeds for failure cases proptest has generated in the past. It is
+# automatically read and these particular cases re-run before any
+# novel cases are generated.
+#
+# It is recommended to check this file in to source control so that
+# everyone who runs the test benefits from these saved cases.
+cc c61624949fd845ada922d9b53244d005a4186f1771b575b086e653598ae97cc8 # shrinks to spec = EvolveSpec { seed: 0, population: 2, generations: 0, mutation_rate: 0.0, crossover_rate: 0.0, fitness: Sharpe, search_space: SearchSpace { indicators: [IndicatorGene { name: "sma", param_ranges: [ParamRange { min: 2.0, max: 7.0, step: 1.0 }] }, IndicatorGene { name: "ema", param_ranges: [ParamRange { min: 10.0, max: 60.0, step: 5.0 }] }], rules: SingleThreshold, max_conditions: 3 }, elitism: 0, top: 1 }

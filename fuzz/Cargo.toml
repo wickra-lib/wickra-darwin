@@ -1,0 +1,47 @@
+[package]
+name = "wickra-darwin-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+serde_json = "1"
+# The core under test. Default features off so the fuzzers exercise the
+# single-threaded path (no rayon).
+darwin-core = { path = "../crates/darwin-core", default-features = false }
+
+# Detach from the parent workspace — cargo-fuzz builds this crate on its own with
+# sanitizer flags on a nightly toolchain.
+[workspace]
+
+[[bin]]
+name = "spec_parse"
+path = "fuzz_targets/spec_parse.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "sample_spec"
+path = "fuzz_targets/sample_spec.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "crossover_mutate"
+path = "fuzz_targets/crossover_mutate.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "evolve_run"
+path = "fuzz_targets/evolve_run.rs"
+test = false
+doc = false
+bench = false

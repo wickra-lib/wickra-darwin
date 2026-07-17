@@ -1,0 +1,18 @@
+{
+  "seed": 41,
+  "population": 14,
+  "generations": 5,
+  "mutation_rate": 0.2,
+  "crossover_rate": 0.7,
+  "fitness": "sharpe",
+  "search_space": {
+    "indicators": [
+      { "name": "sma", "param_ranges": [{ "min": 5, "max": 30 }] },
+      { "name": "ema", "param_ranges": [{ "min": 20, "max": 100 }] }
+    ],
+    "rules": "crossover_pair",
+    "max_conditions": 2
+  },
+  "elitism": 2,
+  "top": 5
+}

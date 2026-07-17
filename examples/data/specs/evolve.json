@@ -1,0 +1,15 @@
+{
+  "seed": 7,
+  "population": 10,
+  "generations": 4,
+  "mutation_rate": 0.2,
+  "crossover_rate": 0.6,
+  "fitness": "sharpe",
+  "search_space": {
+    "indicators": [{ "name": "rsi", "param_ranges": [{ "min": 2, "max": 30 }] }],
+    "rules": "single_threshold",
+    "max_conditions": 1
+  },
+  "elitism": 1,
+  "top": 3
+}

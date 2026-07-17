@@ -1,0 +1,15 @@
+{
+  "seed": 23,
+  "population": 12,
+  "generations": 4,
+  "mutation_rate": 0.25,
+  "crossover_rate": 0.5,
+  "fitness": "pnl",
+  "search_space": {
+    "indicators": [{ "name": "ema", "param_ranges": [{ "min": 5, "max": 100 }] }],
+    "rules": "single_threshold",
+    "max_conditions": 1
+  },
+  "elitism": 1,
+  "top": 3
+}

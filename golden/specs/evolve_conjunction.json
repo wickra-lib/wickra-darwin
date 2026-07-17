@@ -1,0 +1,18 @@
+{
+  "seed": 59,
+  "population": 16,
+  "generations": 5,
+  "mutation_rate": 0.25,
+  "crossover_rate": 0.6,
+  "fitness": "pnl",
+  "search_space": {
+    "indicators": [
+      { "name": "rsi", "param_ranges": [{ "min": 2, "max": 20 }] },
+      { "name": "atr", "param_ranges": [{ "min": 5, "max": 30 }] }
+    ],
+    "rules": "conjunction_all",
+    "max_conditions": 3
+  },
+  "elitism": 2,
+  "top": 5
+}

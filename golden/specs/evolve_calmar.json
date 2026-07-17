@@ -1,0 +1,15 @@
+{
+  "seed": 37,
+  "population": 12,
+  "generations": 5,
+  "mutation_rate": 0.3,
+  "crossover_rate": 0.5,
+  "fitness": "calmar",
+  "search_space": {
+    "indicators": [{ "name": "sma", "param_ranges": [{ "min": 5, "max": 60 }] }],
+    "rules": "single_threshold",
+    "max_conditions": 1
+  },
+  "elitism": 2,
+  "top": 5
+}

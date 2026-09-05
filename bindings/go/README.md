@@ -1,3 +1,7 @@
+<p align="center">
+  <a href="https://wickra.org"><img src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/wickra-banner.webp?v=514" alt="Wickra Darwin — evolutionary strategy search at millions of backtests per second" width="100%"></a>
+</p>
+
 # Wickra Darwin — Go
 
 Go bindings for the Wickra evolutionary strategy search over its C ABI hub via

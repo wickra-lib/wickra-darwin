@@ -49,13 +49,18 @@ byte-identical matrix either way.
 ## Adding a feature or a label
 
 The spec is a serde struct, so extending it means adding a variant, not a
-closure. A new feature kind (`indicator` / `price` / `microstructure`) or label
-kind (`forward_return` / `triple_barrier`) is added to
-`crates/darwin-core/src/spec.rs` and handled in the per-symbol fold, with
-a serde round-trip test and a golden fixture. Indicators themselves come from the
+closure. A new **rule grammar** is a variant of `RuleGrammar` in
+`crates/darwin-core/src/search_space.rs`, sampled in `sample_rule` and mutated
+in `mutate_rule`, with a serde round-trip test and a golden fixture — the search
+has to stay reproducible from its seed, which is the whole point of the corpus.
+A new **fitness metric** is a variant of `Fitness` in
+`crates/darwin-core/src/fitness.rs`, read off the `BacktestReport` the engine
+already produces.
+
+Indicators themselves come from the
 [Wickra](https://github.com/wickra-lib/wickra) core registry by name and
-parameters — no indicator code lives here. See
-[docs/FEATURES.md](docs/FEATURES.md) and [docs/LABELS.md](docs/LABELS.md).
+parameters — no indicator code lives here, and no allowlist either. See
+[docs/GENOME.md](docs/GENOME.md) and [docs/EVOLUTION.md](docs/EVOLUTION.md).
 
 ## Developer Certificate of Origin
 

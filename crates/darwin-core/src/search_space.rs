@@ -37,18 +37,60 @@ fn default_max_conditions() -> usize {
     3
 }
 
-/// Map a gene name to its `wickra-core` indicator type and parameter arity.
-/// The allowlist is a curated set of scalar, single-parameter indicators; an
-/// unknown name is rejected rather than passed blindly to the engine.
+/// Resolve a gene name to the registry's indicator kind and its parameter arity.
+///
+/// This was a four-name allowlist (`sma`, `ema`, `rsi`, `atr`) mapping onto the
+/// `wickra-core` type names, while the README described searching "the
+/// 514-indicator space". Every other name was rejected, so the space the engine
+/// could actually reach was four indicators wide.
+///
+/// The registry is the allowlist now: it knows both halves of the answer, and
+/// `wickra-backtest` resolves the very same names when it runs a candidate, so
+/// the space DARWIN samples from and the space the engine can execute are the
+/// same set by construction rather than by two lists agreeing.
+///
+/// A name is accepted in the spelling the registry uses (`Sma`, `Rsi`, `Macd`)
+/// or in lower case, because the four the allowlist carried were lower case and
+/// every committed spec is written that way.
 #[must_use]
-pub fn indicator_kind(name: &str) -> Option<(&'static str, usize)> {
-    match name {
-        "sma" => Some(("Sma", 1)),
-        "ema" => Some(("Ema", 1)),
-        "rsi" => Some(("Rsi", 1)),
-        "atr" => Some(("Atr", 1)),
-        _ => None,
+pub fn indicator_kind(name: &str) -> Option<(String, usize)> {
+    let canonical = canonical_name(name)?;
+    let arity = arity_of(&canonical)?;
+    Some((canonical, arity))
+}
+
+/// The registry's spelling of `name`, or `None` if it knows no such indicator.
+fn canonical_name(name: &str) -> Option<String> {
+    // The registry is case-sensitive and uses PascalCase. Try the name as given
+    // first -- a spec that already uses the registry spelling costs nothing --
+    // then the capitalised form, which is what `sma` and its three neighbours
+    // were being translated into by hand.
+    if arity_of(name).is_some() {
+        return Some(name.to_string());
     }
+    let mut chars = name.chars();
+    let capitalised: String = match chars.next() {
+        Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
+        None => return None,
+    };
+    arity_of(&capitalised).is_some().then_some(capitalised)
+}
+
+/// How many parameters the registry wants for `name`, or `None` if unknown.
+///
+/// The registry validates a name and its parameters together and exposes no
+/// arity table, so this asks it: the smallest parameter count it accepts is the
+/// arity. Four is the widest any indicator in the catalogue takes.
+fn arity_of(name: &str) -> Option<usize> {
+    const PROBE: [f64; 4] = [14.0, 26.0, 9.0, 2.0];
+    (0..=PROBE.len()).find(|&n| registry_build(name, &PROBE[..n]).is_ok())
+}
+
+/// Whether the registry can build `name` with `params`, discarding the result.
+fn registry_build(name: &str, params: &[f64]) -> core::result::Result<(), ()> {
+    wickra_backtest::core::registry::build(name, params)
+        .map(|_| ())
+        .map_err(|_| ())
 }
 
 impl SearchSpace {
@@ -130,16 +172,26 @@ fn sample_rule(rng: &mut SplitMix64, sp: &SearchSpace, n_genes: usize) -> Rule {
 
 /// Sample a full genome from the space. Loci are drawn in a fixed order:
 /// every indicator's params (in order), then the entry rule, then the exit rule.
+///
+/// # Panics
+/// If an indicator name does not resolve in the registry. Every caller runs
+/// [`SearchSpace::validate`] first, which resolves them all, so this cannot
+/// happen; substituting a different indicator for the one the spec named would
+/// be worse than failing.
 #[must_use]
 pub fn sample_spec(rng: &mut SplitMix64, sp: &SearchSpace) -> Genome {
     let genes: Vec<Gene> = sp
         .indicators
         .iter()
         .map(|ind| {
-            let kind = indicator_kind(&ind.name).map_or("Sma", |(k, _)| k);
+            // `SearchSpace::validate` has already resolved every name;
+            // this cannot fail, and substituting a different indicator
+            // for one the spec asked for would be worse than failing.
+            let (kind, _) =
+                indicator_kind(&ind.name).expect("validate resolved every indicator name");
             Gene {
                 name: ind.name.clone(),
-                kind: kind.to_owned(),
+                kind,
                 params: sample_params(rng, &ind.param_ranges),
             }
         })

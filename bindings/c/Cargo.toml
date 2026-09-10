@@ -29,5 +29,5 @@ missing_panics_doc = "allow"
 missing_errors_doc = "allow"
 
 [dependencies]
-darwin-core = { path = "../../crates/darwin-core", version = "0.1" }
+darwin-core = { workspace = true }
 serde_json = { workspace = true }

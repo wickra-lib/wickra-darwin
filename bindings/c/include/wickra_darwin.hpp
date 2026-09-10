@@ -11,15 +11,15 @@
 //
 //     #include <wickra_darwin.hpp>
 //
-//     wickra::Darwin handle(R"({"universe":["AAA"], ... })");
-//     std::string report = handle.command(R"({"cmd":"scan","data":{...}})");
+//     wickra::Darwin darwin(R"({"population":32,"generations":5,...})");
+//     std::string report = darwin.command(R"({"cmd":"evolve","data":{...}})");
 //
 // The darwin is data-driven, so this wrapper deliberately stops at strings:
 // the spec and the report are JSON, and which JSON library a caller uses is
 // their choice, not this header's.
 
-#ifndef WICKRA_SCREENER_HPP
-#define WICKRA_SCREENER_HPP
+#ifndef WICKRA_DARWIN_HPP
+#define WICKRA_DARWIN_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -37,7 +37,7 @@ class DarwinError : public std::runtime_error {
   explicit DarwinError(const std::string& what) : std::runtime_error(what) {}
 };
 
-/// An owning handle to a darwin built from a scan spec.
+/// An owning handle to a darwin built from a spec.
 ///
 /// Move-only, because the underlying handle is a unique resource: copying it
 /// would free the same pointer twice.
@@ -114,4 +114,4 @@ class Darwin {
 
 }  // namespace wickra
 
-#endif  // WICKRA_SCREENER_HPP
+#endif  // WICKRA_DARWIN_HPP

@@ -150,12 +150,19 @@ pub fn sample_params(rng: &mut SplitMix64, ranges: &[ParamRange]) -> Vec<f64> {
         .collect()
 }
 
+/// An indicator reference operand.
+///
+/// `wickra_backtest::Operand` is an untagged enum whose `Ref` variant is a plain
+/// JSON string. Wrapping the name in `{"ref": ...}` matches no variant, so the
+/// whole `StrategySpec` fails to deserialise and the candidate is skipped.
 fn ref_operand(name: &str) -> Value {
-    json!({ "ref": name })
+    json!(name)
 }
 
+/// A literal operand. `Operand::Const` is a bare JSON number, for the same
+/// reason: the untagged enum has no object form for it.
 fn const_operand(c: f64) -> Value {
-    json!({ "const": c })
+    json!(c)
 }
 
 fn term_cond(t: &Term, genes: &[Gene]) -> Value {

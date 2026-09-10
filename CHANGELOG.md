@@ -9,6 +9,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **The search never evaluated a single candidate.** `to_strategy_spec` wrote
+  operands as `{"ref": "rsi"}` and `{"const": 50.46}`, but
+  `wickra_backtest::Operand` is an untagged enum whose `Ref` variant is a bare
+  string and whose `Const` variant is a bare number. Every candidate failed to
+  deserialise, `evaluate` skipped it with `continue`, and a candidate that
+  scores nothing becomes `NEG_INFINITY` -- which is not finite, so it is
+  filtered out of both the generation statistics and the hall of fame.
+
+- **The failure was silent, and the corpus had blessed it.** A run in which
+  nothing deserialised still returns a well-formed report: `evaluated: 0`,
+  `best: 0.0`, and an empty `best` list. Every binding printed `hall of fame: 0`
+  without complaint, and all five golden expectations recorded that. The two
+  tests that should have caught it could not: one walks `report.best` to check
+  each spec parses and was iterating an empty list, the other compared a history
+  of zeros against itself. Three tests now pin the property directly -- every
+  generation scores its whole population, the hall of fame fills to the spec's
+  `top`, and a sampled genome round-trips into `StrategySpec`.
+
+- **The throughput table timed a search that ran no backtests.** With every
+  candidate failing to parse, the loop never reached the engine, so a table
+  headed "backtests per second" was measuring sampling and a failed
+  deserialisation. Re-measured after the fix: **~122 K-448 K backtests/second**,
+  up from the ~110 K-285 K reported before. The work count was also off by one
+  generation -- the loop scores the initial population before it breeds, so the
+  total is `population x (generations + 1) x symbols`.
+
+- **Three steps of the `examples` job ran a file that is not here.** Python,
+  Node.js and R each invoked `examples/<lang>/scan.*` -- the screener's file
+  name, left over from the port -- so they died on a missing file before
+  reaching any assertion.
+
+- **Every language step asserted `"symbol":"BBB"`**, a line from the screener's
+  scan report that no example here prints. Each step now matches a string its
+  own example emits, read off the format string rather than guessed: the
+  assertions were checked against a real run of each example.
+
+- **The Rust example's lockfile pinned the pre-migration engine.** It still held
+  `wickra-core` 0.9.9 and `wickra-backtest` 0.1.0 while the workspace declares
+  1.0 and 0.1.4, so cargo silently repaired the lock on every build and the
+  example was the one reach measured against a different engine than the rest.
+
 - **The C++ example now goes through the C++ hull.** It called the C functions
   directly and rebuilt the two-call length protocol by hand -- the very thing
   `wickra_darwin.hpp` exists to remove -- which left the shipped C++ surface

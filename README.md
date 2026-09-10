@@ -40,7 +40,7 @@ Wickra Darwin is one data-driven core, `darwin-core`: a population of
 `StrategySpec` genomes is evolved with genetic operators (mutation + crossover
 across the indicator search space) and each candidate is scored by
 `wickra-backtest`. Because the engine is O(1) per tick, the loop sustains
-~110 K-285 K backtests per second (see [BENCHMARKS.md](BENCHMARKS.md)) —
+~122 K-448 K backtests per second (see [BENCHMARKS.md](BENCHMARKS.md)) —
 "AlphaZero for trading strategies." The core is
 exposed as a **JSON-over-C-ABI data API** (`command_json`) in **Rust, Python,
 Node.js, WASM, C, C++, C#, Go, Java and R**, plus a reference CLI.

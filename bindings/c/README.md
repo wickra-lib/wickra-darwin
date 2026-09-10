@@ -14,7 +14,7 @@ cargo build -p wickra-darwin-c --release
 
 This produces `wickra_darwin.{dll,so,dylib}` (and a static library) under
 `target/release/`. The header is committed at
-[`include/wickra_darwin.h`](include/wickra_darwin.h) and regenerated with:
+[`include/wickra_darwin.h`](https://github.com/wickra-lib/wickra-darwin/blob/main/bindings/c/include/wickra_darwin.h) and regenerated with:
 
 ```bash
 cbindgen --config cbindgen.toml --crate wickra-darwin-c --output include/wickra_darwin.h
@@ -56,5 +56,5 @@ report here and in every other Wickra Darwin binding.
 
 ## License
 
-Dual-licensed under either [MIT](../../LICENSE-MIT) or
-[Apache-2.0](../../LICENSE-APACHE), at your option.
+Dual-licensed under either [MIT](https://github.com/wickra-lib/wickra-darwin/blob/main/LICENSE-MIT) or
+[Apache-2.0](https://github.com/wickra-lib/wickra-darwin/blob/main/LICENSE-APACHE), at your option.

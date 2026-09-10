@@ -32,7 +32,7 @@ cast_sign_loss = "allow"
 similar_names = "allow"
 
 [dependencies]
-darwin-core = { path = "../../crates/darwin-core", version = "0.1" }
+darwin-core = { workspace = true }
 napi = { version = "3.9", features = ["napi8"] }
 napi-derive = "3.5"
 

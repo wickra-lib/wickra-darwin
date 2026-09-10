@@ -2,11 +2,11 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "wickra-darwin"
 abstract: >-
-  A deterministic multi-symbol feature store built on the Wickra core: a
-  data-driven FeatureSpec is folded over each symbol's history with 514 O(1)
-  streaming indicators, labels are joined over a forward horizon, and the result
-  is materialized as a feature matrix, exposed as a JSON-over-C-ABI data API in
-  ten languages.
+  Evolutionary strategy search built on the Wickra backtest engine: a JSON
+  StrategySpec is the genome, mutated and crossed over the whole indicator
+  registry and scored by a chosen objective, so a population of candidate
+  strategies is evaluated at hundreds of thousands of backtests per second.
+  Exposed as a JSON-over-C-ABI data API in ten languages.
 type: software
 authors:
   - alias: kingchenc
@@ -18,7 +18,9 @@ license:
   - Apache-2.0
 keywords:
   - trading
-  - features
+  - genetic-algorithm
+  - strategy-search
+  - backtesting
+  - optimization
   - indicators
-  - streaming
   - finance

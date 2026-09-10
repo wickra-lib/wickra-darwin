@@ -40,9 +40,10 @@ fn default_max_conditions() -> usize {
 /// Resolve a gene name to the registry's indicator kind and its parameter arity.
 ///
 /// This was a four-name allowlist (`sma`, `ema`, `rsi`, `atr`) mapping onto the
-/// `wickra-core` type names, while the README described searching "the
-/// 514-indicator space". Every other name was rejected, so the space the engine
-/// could actually reach was four indicators wide.
+/// `wickra-core` type names, while the README described searching the whole
+/// indicator space. Every other name was rejected, so the space the engine could
+/// actually reach was four indicators wide, against the 497 names the registry
+/// resolves.
 ///
 /// The registry is the allowlist now: it knows both halves of the answer, and
 /// `wickra-backtest` resolves the very same names when it runs a candidate, so

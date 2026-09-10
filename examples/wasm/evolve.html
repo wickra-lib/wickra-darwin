@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>wickra-darwin WASM — evolve a strategy</title>
+  <style>
+    body { font-family: ui-sans-serif, system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; color: #1d1d1d; }
+    h1 { margin-bottom: .25rem; }
+    .meta { color: #666; margin-top: 0; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1rem; font-variant-numeric: tabular-nums; }
+    th, td { border: 1px solid #ddd; padding: .5rem .75rem; text-align: right; }
+    th:first-child, td:first-child { text-align: left; }
+    th { background: #fafafa; }
+    code { background: #f4f4f4; padding: .1rem .25rem; border-radius: .2rem; font-size: .9em; }
+    pre { background: #f6f8fa; padding: .75rem; border-radius: .3rem; overflow-x: auto; }
+    button { padding: .5rem 1rem; }
+    #status { margin-top: 1rem; color: #666; }
+  </style>
+</head>
+<body>
+  <h1>wickra-darwin WASM — evolve a strategy</h1>
+  <p class="meta">
+    The same example every other language carries: evolve a small population of
+    <code>StrategySpec</code> genomes over a deterministic universe and show the
+    best fitness per generation. The search is reproducible from its seed alone,
+    so pressing the button twice gives the identical history — the same one
+    <code>examples/node/evolve.js</code> prints.
+  </p>
+
+  <p><button id="go" disabled>Run search</button></p>
+  <p id="status">Loading WASM module…</p>
+
+  <table id="history" hidden>
+    <thead><tr><th>Generation</th><th>Best fitness</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <pre id="raw" hidden></pre>
+
+  <script type="module">
+    import init, { Darwin, version }
+      from "../../bindings/wasm/pkg/wickra_darwin_wasm.js";
+
+    const SPEC = JSON.stringify({
+      seed: 7,
+      population: 10,
+      generations: 4,
+      mutation_rate: 0.2,
+      crossover_rate: 0.6,
+      fitness: "sharpe",
+      search_space: {
+        // Any name the registry knows, with the parameters it takes — `macd`
+        // wants three, which a four-name allowlist could not express.
+        indicators: [
+          { name: "rsi", param_ranges: [{ min: 2, max: 30, step: 1 }] },
+          {
+            name: "macd",
+            param_ranges: [
+              { min: 8, max: 16, step: 2 },
+              { min: 20, max: 30, step: 2 },
+              { min: 5, max: 12, step: 1 },
+            ],
+          },
+        ],
+        rules: "single_threshold",
+        max_conditions: 1,
+      },
+      elitism: 1,
+      top: 3,
+    });
+
+    const candles = (n) =>
+      Array.from({ length: n }, (_, i) => {
+        const close = 100.0 + 10.0 * Math.sin(i * 0.1) + 0.05 * i;
+        const opn = 100.0 + 10.0 * Math.sin((i - 1) * 0.1) + 0.05 * (i - 1);
+        return {
+          time: 1700000000 + i * 3600,
+          open: opn,
+          high: Math.max(close, opn) + 1.0,
+          low: Math.min(close, opn) - 1.0,
+          close,
+          volume: 1000.0,
+        };
+      });
+
+    const DATA = { AAA: candles(250), BBB: candles(250) };
+
+    const status = document.getElementById("status");
+    const go = document.getElementById("go");
+
+    function run() {
+      // A fresh handle per run: the search is seeded, so a reused handle would
+      // continue rather than repeat, and the table would not match the seed on
+      // screen.
+      const darwin = new Darwin(SPEC);
+      const report = JSON.parse(
+        darwin.command(JSON.stringify({ cmd: "evolve", data: DATA })),
+      );
+
+      const body = document.querySelector("#history tbody");
+      body.replaceChildren();
+      (report.history ?? []).forEach((entry, generation) => {
+        const tr = document.createElement("tr");
+        const best = typeof entry === "number" ? entry : entry.best ?? entry.fitness ?? "—";
+        for (const cell of [generation, best]) {
+          const td = document.createElement("td");
+          td.textContent = String(cell);
+          tr.append(td);
+        }
+        body.append(tr);
+      });
+      document.getElementById("history").hidden = false;
+
+      const raw = document.getElementById("raw");
+      raw.textContent = JSON.stringify(report, null, 2);
+      raw.hidden = false;
+
+      status.textContent =
+        `${(report.history ?? []).length} generation(s) from seed 7 — ` +
+        `wickra-darwin ${version()}.`;
+    }
+
+    await init();
+    status.textContent = `Module ready — wickra-darwin ${version()}.`;
+    go.disabled = false;
+    go.addEventListener("click", () => {
+      try {
+        run();
+      } catch (err) {
+        status.textContent = `Error: ${err}`;
+      }
+    });
+  </script>
+</body>
+</html>

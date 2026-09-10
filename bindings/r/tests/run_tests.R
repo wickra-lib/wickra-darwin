@@ -53,4 +53,51 @@ ok <- wkdarwin_command(deferred, paste0('{"cmd":"set_spec","spec":', spec, "}"))
 stopifnot(grepl('"ok":true', ok, fixed = TRUE))
 stopifnot(grepl('"history"', wkdarwin_command(deferred, evolve_cmd()), fixed = TRUE))
 
+
+## The batch search, through the same boundary.
+##
+## There is no streaming half in DARWIN: a search is a batch computation over a
+## whole dataset. What stands in its place is the property that makes the batch
+## usable -- the same seed reproduces the same search -- and it has to hold
+## through this binding, not only in Rust.
+##
+## The second check names `macd`, which takes three parameters. Until the search
+## space resolved through the registry, the allowlist was four names and declared
+## every indicator as taking one, so this spec was unreachable twice over.
+
+batch_spec <- function(indicators) {
+  paste0(
+    '{"seed":7,"population":8,"generations":3,',
+    '"mutation_rate":0.2,"crossover_rate":0.6,"fitness":"sharpe",',
+    '"elitism":1,"top":3,"search_space":{"indicators":[', indicators,
+    '],"rules":"single_threshold","max_conditions":2}}'
+  )
+}
+
+one_parameter <- '{"name":"rsi","param_ranges":[{"min":2,"max":30,"step":1}]}'
+three_parameters <- paste0(
+  '{"name":"macd","param_ranges":[',
+  '{"min":8,"max":16,"step":2},{"min":20,"max":30,"step":2},',
+  '{"min":5,"max":12,"step":1}]}'
+)
+
+batch_search <- function(spec) {
+  handle <- wkdarwin_new(spec)
+  wkdarwin_command(handle, evolve_cmd())
+}
+
+## The same seed reproduces the same search.
+stopifnot(identical(batch_search(batch_spec(one_parameter)),
+                    batch_search(batch_spec(one_parameter))))
+
+## A three-parameter indicator is searchable at all.
+three_report <- batch_search(batch_spec(three_parameters))
+stopifnot(grepl('"history"', three_report, fixed = TRUE))
+stopifnot(grepl('"best"', three_report, fixed = TRUE))
+
+## A name the registry does not know is refused.
+bad_name <- batch_spec('{"name":"notanindicator","param_ranges":[{"min":2,"max":30,"step":1}]}')
+bad_err <- tryCatch(wkdarwin_new(bad_name), error = function(e) e)
+stopifnot(inherits(bad_err, "error"))
+
 cat("wickra-darwin R tests passed\n")

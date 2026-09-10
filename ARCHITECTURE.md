@@ -17,7 +17,8 @@ the `wickra-backtest` engine. Everything reproducible lives in one Rust crate,
 
 1. **Seed** a population of `StrategySpec` genomes.
 2. **Evaluate** each candidate with `wickra_backtest::run` — O(1) per tick, so
-   the loop sustains millions of backtests per second.
+   the loop sustains hundreds of thousands of backtests per second
+   (~110 K–285 K measured; see [BENCHMARKS.md](BENCHMARKS.md)).
 3. **Select** the fittest by a metric from `BacktestReport` (e.g. Sharpe).
 4. **Mutate + cross** the survivors to form the next generation.
 5. Repeat for a bounded number of generations.

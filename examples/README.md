@@ -30,6 +30,7 @@ cargo run -p darwin-cli -- --spec examples/data/specs/evolve.json --data example
 - **C#** — [`csharp/Evolve/`](csharp/Evolve/): `dotnet run --project examples/csharp/Evolve`
 - **Java** — [`java/`](java/): `mvn -q compile exec:java -Dexec.mainClass=org.wickra.darwin.examples.Evolve`
 - **R** — [`r/evolve.R`](r/evolve.R): `R CMD INSTALL bindings/r && Rscript examples/r/evolve.R`
+- **WASM** — [`wasm/evolve.html`](wasm/evolve.html): `wasm-pack build bindings/wasm --target web`, serve the repository root, then open `examples/wasm/evolve.html`
 - **C / C++** — [`c/`](c/): build the C ABI, then CMake + ctest:
 
   ```bash

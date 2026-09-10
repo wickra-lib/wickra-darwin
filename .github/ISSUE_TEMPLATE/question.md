@@ -15,7 +15,7 @@ In words.
 **What you have tried**
 
 ```json
-# your ScanSpec so far
+# your EvolveSpec so far
 ```
 
 **What happened**

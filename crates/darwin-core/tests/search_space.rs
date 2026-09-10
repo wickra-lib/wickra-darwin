@@ -2,8 +2,9 @@
 //!
 //! `indicator_kind` was a four-name allowlist — `sma`, `ema`, `rsi`, `atr` —
 //! mapping onto the `wickra-core` type names, while the README described
-//! searching "the 514-indicator space". Every other name was rejected, so the
-//! space the engine could actually reach was four indicators wide.
+//! searching the whole indicator space. Every other name was rejected, so the
+//! space the engine could actually reach was four indicators wide, against the
+//! 497 names the registry resolves.
 //!
 //! These tests pin the two properties that matter: any name the engine can
 //! execute can also be searched, and the arity comes from the registry rather

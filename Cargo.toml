@@ -1,5 +1,8 @@
 [workspace]
 resolver = "2"
+# cargo-fuzz builds this crate on its own, with sanitizer flags the workspace
+# must not inherit, so it is not a member.
+exclude = ["fuzz"]
 members = [
     "crates/darwin-core",
     "crates/darwin-cli",
@@ -33,7 +36,7 @@ wickra-core = "1.0"
 # rather than the four this repository used to hardcode.
 wickra-backtest = "0.1.4"
 cbindgen = "0.27"
-criterion = "0.8"
+criterion = { package = "codspeed-criterion-compat", version = "5.0.1", features = ["html_reports"] }
 proptest = "1"
 
 [workspace.lints.rust]

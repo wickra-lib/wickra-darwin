@@ -9,6 +9,7 @@ Description: R bindings for wickra-darwin over its C ABI hub: a seeded EvolveSpe
 License: MIT + file LICENSE | Apache License 2.0
 URL: https://github.com/wickra-lib/wickra-darwin
 BugReports: https://github.com/wickra-lib/wickra-darwin/issues
+Depends: R (>= 2.10)
 Encoding: UTF-8
 NeedsCompilation: yes
 SystemRequirements: the wickra-darwin C ABI shared library (WKDARWIN_LIB)

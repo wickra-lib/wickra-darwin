@@ -12,6 +12,12 @@ description = "The wickra-darwin reference CLI: evolve strategies from candle da
 name = "wickra-darwin"
 path = "src/main.rs"
 
+[package.metadata.docs.rs]
+# Document every feature so an optional surface is not missing from the
+# reference. docs.rs builds on nightly and sets the `docsrs` cfg, which is what
+# makes the feature badges appear.
+all-features = true
+
 [dependencies]
 darwin-core = { path = "../darwin-core", version = "0.1" }
 wickra-backtest = { workspace = true }

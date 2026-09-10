@@ -4,7 +4,9 @@
   "description": "Native binding for wickra-darwin (Windows x64 MSVC). Installed automatically as an optional dependency of wickra-darwin on matching platforms.",
   "main": "wickra-darwin.win32-x64-msvc.node",
   "files": [
-    "wickra-darwin.win32-x64-msvc.node"
+    "wickra-darwin.win32-x64-msvc.node",
+    "LICENSE-MIT",
+    "LICENSE-APACHE"
   ],
   "license": "MIT OR Apache-2.0",
   "engines": {

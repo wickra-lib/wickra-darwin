@@ -4,7 +4,9 @@
   "description": "Native binding for wickra-darwin (macOS x64). Installed automatically as an optional dependency of wickra-darwin on matching platforms.",
   "main": "wickra-darwin.darwin-x64.node",
   "files": [
-    "wickra-darwin.darwin-x64.node"
+    "wickra-darwin.darwin-x64.node",
+    "LICENSE-MIT",
+    "LICENSE-APACHE"
   ],
   "license": "MIT OR Apache-2.0",
   "engines": {

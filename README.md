@@ -39,10 +39,32 @@ indicator registry.**
 Wickra Darwin is one data-driven core, `darwin-core`: a population of
 `StrategySpec` genomes is evolved with genetic operators (mutation + crossover
 across the indicator search space) and each candidate is scored by
-`wickra-backtest`. Because the engine is O(1) per tick, the loop sustains a very
-high backtests-per-second rate — "AlphaZero for trading strategies." The core is
+`wickra-backtest`. Because the engine is O(1) per tick, the loop sustains
+~110 K-285 K backtests per second (see [BENCHMARKS.md](BENCHMARKS.md)) —
+"AlphaZero for trading strategies." The core is
 exposed as a **JSON-over-C-ABI data API** (`command_json`) in **Rust, Python,
 Node.js, WASM, C, C++, C#, Go, Java and R**, plus a reference CLI.
+
+```rust
+use darwin_core::{evolve, EvolveSpec};
+
+// A bounded search: three indicator genes over the registry, scored by Sharpe.
+let spec: EvolveSpec = serde_json::from_str(r#"{
+    "search_space": {
+        "indicators": [
+            {"name": "rsi",  "param_ranges": [{"min": 5, "max": 30, "step": 1}]},
+            {"name": "sma",  "param_ranges": [{"min": 5, "max": 50, "step": 5}]},
+            {"name": "macd", "param_ranges": [{"min": 8,  "max": 16, "step": 2},
+                                              {"min": 20, "max": 30, "step": 2},
+                                              {"min": 5,  "max": 12, "step": 1}]}
+        ],
+        "rules": "single_threshold"
+    },
+    "population": 64, "generations": 20, "fitness": "sharpe", "seed": 42
+}"#)?;
+
+let report = evolve(&data, &spec)?;   // same seed, same winner, every time
+```
 
 ## Status
 
@@ -130,12 +152,34 @@ examples/             one runnable example per language
 docs/                 architecture, evolution, genome, fitness, determinism, cookbook
 ```
 
-## Building from source
+## Building everything from source
 
 ```bash
-cargo build
-cargo test
+cargo build --workspace --all-features                 # Rust core + CLI + C ABI
+(cd bindings/python && maturin develop --release)      # Python
+(cd bindings/node   && npm ci && npm run build)        # Node
+(cd bindings/wasm   && wasm-pack build --target web)   # WASM
+(cd bindings/csharp && dotnet build)                   # C#
+(cd bindings/go     && go build ./...)                 # Go
+(cd bindings/java   && mvn -q package)                 # Java
+R CMD INSTALL bindings/r                               # R
 ```
+
+The C-ABI consumers (C/C++, C#, Go, Java, R) need the C ABI library first —
+`cargo build --release -p wickra-darwin-c` — on the loader path.
+
+## Testing
+
+```bash
+cargo test --workspace --all-features
+cargo clippy --workspace --all-targets --all-features -- -D warnings
+cargo fmt --all --check
+```
+
+Every binding replays the same golden searches from [`golden/`](golden/) and must
+produce the identical bytes; that corpus is the cross-language contract, not a
+per-language approximation. `python scripts/check_binding_surface.py` asserts the
+ten surfaces stayed in step.
 
 ## Benchmarks
 
@@ -145,7 +189,18 @@ scores candidate specs through the `wickra-backtest` engine. See
 
 ## Requirements
 
-- Rust 1.86+ (MSRV). Darwin depends on the `wickra-backtest` engine (git).
+- **Rust 1.86+** — the workspace MSRV; the Node binding needs **Rust 1.88**.
+- **Python 3.9+** — the Python binding.
+- **Node 22+** — the Node binding.
+- **Go 1.23+** — the Go binding.
+- **Java 22+** — the Java binding.
+- **R 2.10+** — the R package.
+- **.NET 8+** — the C# binding.
+- A **C11 / C++17** compiler with CMake for the C and C++ examples.
+
+Darwin depends on `wickra-backtest` for the engine it scores candidates with and
+for the name -> indicator registry the search space is drawn from, and on
+`wickra-core` for the indicator types. Both come from crates.io.
 
 ## Security
 
@@ -157,13 +212,40 @@ the work.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Disclaimer
+## Ecosystem
 
-Wickra Darwin is a research tool, provided "as is" without warranty of any kind.
-Evolutionary search optimises a fitness objective over historical data — a strong
-in-sample fitness is not evidence of out-of-sample performance, and overfitting is
-the default outcome, not the exception. Nothing here is financial advice; any
-strategy you deploy is your responsibility, and trading carries risk of loss.
+Part of the [Wickra](https://github.com/wickra-lib/wickra) family — each one a
+data-driven core with a CLI and the same ten-language binding surface:
+
+- [**wickra**](https://github.com/wickra-lib/wickra) — main library (Rust core + Python / Node.js / WASM bindings + a C ABI for C / C++ / C# / Go / Java / R)
+- [**wickra-playground**](https://github.com/wickra-lib/wickra-playground) — a polyglot strategy playground: one StrategySpec live side by side in Python, Rust, JS and Go, entirely in the browser
+- [**wickra-exchange**](https://github.com/wickra-lib/wickra-exchange) — unified market-data + execution across ten crypto exchanges
+- [**wickra-backtest**](https://github.com/wickra-lib/wickra-backtest) — event-driven backtester over the Wickra core
+- [**wickra-terminal**](https://github.com/wickra-lib/wickra-terminal) — the trading terminal: a TUI and a browser renderer over the stack
+- [**wickra-xray**](https://github.com/wickra-lib/wickra-xray) — market-microstructure explorer: footprint, order-book heatmap, liquidation map, funding/OI divergence
+- [**wickra-radar**](https://github.com/wickra-lib/wickra-radar) — perp-universe alert radar: OI delta, funding flip, book imbalance, liquidation clusters, OI/price divergence
+- [**wickra-copilot**](https://github.com/wickra-lib/wickra-copilot) — local market copilot grounded in real order-book, liquidation and funding microstructure
+- [**wickra-shazam**](https://github.com/wickra-lib/wickra-shazam) — match an asset's current microstructure fingerprint against its entire history
+- [**wickra-benchmark**](https://github.com/wickra-lib/wickra-benchmark) — reproducible, golden-verified benchmark suite — recompute any (strategy, dataset, report) in ten languages and confirm it byte-for-byte
+- [**wickra-strategy-ci**](https://github.com/wickra-lib/wickra-strategy-ci) — Jest for trading strategies: golden-pin the report, catch regressions in CI, property-test against fuzzed data
+- [**wickra-verify**](https://github.com/wickra-lib/wickra-verify) — confirm or refute a claimed backtest report against its strategy and data, in ten languages
+- [**wickra-proof**](https://github.com/wickra-lib/wickra-proof) — Proof-of-Backtest: deterministic (spec, data) → report + blake3 hash, recomputable byte-for-byte in ten languages
+- [**wickra-zk**](https://github.com/wickra-lib/wickra-zk) — prove a backtest zero-knowledge — on-chain-verifiable performance without revealing the data or the strategy
+- [**wickra-impact**](https://github.com/wickra-lib/wickra-impact) — the backtester that knows you would have moved the market: agent-based fills on the real historical L2 order book
+- [**wickra-gym**](https://github.com/wickra-lib/wickra-gym) — a Gymnasium-compatible, microstructure-aware backtest environment with O(1) steps for deterministic RL rollouts
+- [**wickra-feature-store**](https://github.com/wickra-lib/wickra-feature-store) — OHLCV and microstructure streams into ML-ready feature matrices over 514 O(1) streaming indicators
+- [**wickra-genome**](https://github.com/wickra-lib/wickra-genome) — a vector database of the whole market: every asset a 514-dim live vector, for similarity search, clustering and anomaly detection
+- [**wickra-timemachine**](https://github.com/wickra-lib/wickra-timemachine) — scrub the whole market like a video — every symbol, full order book, rewound to any moment via deterministic re-fold
+- [**wickra-synth**](https://github.com/wickra-lib/wickra-synth) — deterministic synthetic market microstructure: OHLCV, order book, trades and funding from a single seed
+- [**wickra-compile**](https://github.com/wickra-lib/wickra-compile) — compile a strategy spec into a standalone deployable: a WASM module, a self-contained binary, or a `no_std` artifact
+- [**wickra-embed**](https://github.com/wickra-lib/wickra-embed) — allocation-free, `no_std` streaming indicators for bare-metal and HFT, byte-for-byte identical to the core
+- [**wickra-pico**](https://github.com/wickra-lib/wickra-pico) — the O(1) indicator core running bare-metal on a $5 Raspberry Pi Pico — the LED blinks on the EMA cross
+
+The screener's own guides live in [`docs/`](docs/) beside the code; its site,
+with the in-browser demo and the benchmark figures, is at
+[screener.wickra.org](https://screener.wickra.org). The indicator library's
+reference is at [docs.wickra.org](https://docs.wickra.org) and the org landing
+page at [wickra.org](https://wickra.org).
 
 ## License
 
@@ -199,3 +281,11 @@ conditions.
   <img alt="wickra-darwin star history" width="640"
        src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/star-history.svg">
 </p>
+
+## Disclaimer
+
+Wickra Darwin is a research tool, provided "as is" without warranty of any kind.
+Evolutionary search optimises a fitness objective over historical data — a strong
+in-sample fitness is not evidence of out-of-sample performance, and overfitting is
+the default outcome, not the exception. Nothing here is financial advice; any
+strategy you deploy is your responsibility, and trading carries risk of loss.

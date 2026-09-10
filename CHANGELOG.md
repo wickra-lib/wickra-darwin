@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **`cargo-deny` was set to warn about duplicated crates, so it noted that split
+  and moved on.** It is an error now. Only four duplicates exist across this
+  workspace and each is a crate part-way through a major release reached through
+  two ecosystems; they are skipped by name with the reason recorded, so a fifth
+  still fails. Verified by putting 6.1.3 back and watching the check fail on
+  `convert_case` before the compiler ever ran.
+
+- **`actionlint` failed on five shell constructs the screener had already
+  fixed.** `a && b || c` is not if-then-else -- when the publish succeeded but
+  the echo failed, the fallback branch ran and reported "already published";
+  `local pkg=$(basename …)` and `export PATH="$(cygpath …)"` hide the command's
+  exit status behind `local`/`export`; and an asset count taken from `ls` breaks
+  on a filename containing a newline. The runner-label config the linter needs
+  for `windows-11-arm` was missing too.
+
 - **The search never evaluated a single candidate.** `to_strategy_spec` wrote
   operands as `{"ref": "rsi"}` and `{"const": 50.46}`, but
   `wickra_backtest::Operand` is an untagged enum whose `Ref` variant is a bare

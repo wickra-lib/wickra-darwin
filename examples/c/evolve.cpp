@@ -1,11 +1,18 @@
 // A runnable C++ example: evolve strategy specs over a small deterministic
-// universe through the wickra-darwin C ABI and print the search summary.
+// universe and print the search summary.
+//
+// This goes through `wickra_darwin.hpp`, the C++ hull shipped beside the C
+// header, because that hull is what a C++ caller is meant to use: it owns and
+// frees the handle, runs the two-call length protocol behind
+// `wickra_darwin_command` for you, and turns a refusal into an exception rather
+// than a negative integer that is easy to ignore. Calling the C functions
+// directly from C++ works too -- `evolve.c` shows that -- but then the hull
+// would be shipped without anything building it.
 #include <cmath>
 #include <cstdio>
 #include <string>
-#include <vector>
 
-#include "wickra_darwin.h"
+#include "wickra_darwin.hpp"
 
 static const char *SPEC =
     "{\"seed\":7,\"population\":10,\"generations\":4,"
@@ -30,24 +37,16 @@ static std::string build_command() {
 }
 
 int main() {
-    WickraDarwin *darwin = wickra_darwin_new(SPEC);
-    if (!darwin) {
-        std::fprintf(stderr, "failed to build darwin\n");
+    try {
+        wickra::Darwin darwin(SPEC);
+        const std::string report = darwin.command(build_command());
+        std::printf("wickra-darwin %s\n", wickra::Darwin::version().c_str());
+        std::printf("report bytes: %d\n", static_cast<int>(report.size()));
+    } catch (const wickra::DarwinError &err) {
+        // Every failure arrives here: a spec the core rejects, a command it does
+        // not know, a response that changed length between the two ABI calls.
+        std::fprintf(stderr, "%s\n", err.what());
         return 1;
     }
-    std::string cmd = build_command();
-
-    int len = wickra_darwin_command(darwin, cmd.c_str(), nullptr, 0);
-    if (len < 0) {
-        wickra_darwin_free(darwin);
-        return 1;
-    }
-    std::vector<char> buf(static_cast<size_t>(len) + 1);
-    wickra_darwin_command(darwin, cmd.c_str(), buf.data(), buf.size());
-
-    std::printf("wickra-darwin %s\n", wickra_darwin_version());
-    std::printf("report bytes: %d\n", len);
-
-    wickra_darwin_free(darwin);
     return 0;
 }

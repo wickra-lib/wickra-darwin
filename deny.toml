@@ -52,7 +52,7 @@ skip = [
     { crate = "r-efi" },
 ]
 wildcards = "deny"
-# Internal path dependencies (the binding crates depend on darwin-core by path)
+# Internal path dependencies (the binding crates depend on wickra-darwin-core by path)
 # carry an explicit version, so they are not wildcard paths.
 
 [sources]

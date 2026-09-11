@@ -2,14 +2,14 @@
 
 Wickra Darwin evolves a population of `StrategySpec` genomes and scores each with
 the `wickra-backtest` engine. Everything reproducible lives in one Rust crate,
-`darwin-core`; the CLI and the ten language bindings are thin shells around it.
+`wickra-darwin-core`; the CLI and the ten language bindings are thin shells around it.
 
 ## Workspace
 
 | Crate | Role |
 |-------|------|
-| `darwin-core` | The library: population model, genetic operators (mutation + crossover over `StrategySpec`s), the fitness loop and the JSON command boundary. |
-| `darwin-cli` (`wickra-darwin`) | The reference CLI. |
+| `wickra-darwin-core` | The library: population model, genetic operators (mutation + crossover over `StrategySpec`s), the fitness loop and the JSON command boundary. |
+| `wickra-darwin` (`wickra-darwin`) | The reference CLI. |
 | `darwin-bench` | Criterion micro-benchmarks (backtests/second). |
 | `bindings/*` | The language surfaces over the C ABI hub. |
 

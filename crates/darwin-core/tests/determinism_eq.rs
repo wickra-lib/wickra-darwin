@@ -9,9 +9,9 @@
 
 use std::collections::BTreeMap;
 
-use darwin_core::search_space::{RuleGrammar, SearchSpace};
-use darwin_core::{evolve, EvolveSpec, Fitness, IndicatorGene, ParamRange};
 use wickra_backtest::Candle;
+use wickra_darwin_core::search_space::{RuleGrammar, SearchSpace};
+use wickra_darwin_core::{evolve, EvolveSpec, Fitness, IndicatorGene, ParamRange};
 
 fn candles(n: usize) -> Vec<Candle> {
     (0..n)

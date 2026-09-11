@@ -7,7 +7,7 @@
 //! cargo run --manifest-path examples/rust/Cargo.toml
 //! ```
 
-use darwin_core::Darwin;
+use wickra_darwin_core::Darwin;
 
 const SPEC: &str = r#"{
     "seed": 7, "population": 10, "generations": 4,
@@ -44,7 +44,7 @@ fn main() {
     let report: serde_json::Value =
         serde_json::from_str(&darwin.command_json(&evolve_command()).expect("evolve")).unwrap();
 
-    println!("wickra-darwin {}", darwin_core::version());
+    println!("wickra-darwin {}", wickra_darwin_core::version());
     println!("generations: {}", report["history"].as_array().unwrap().len());
     println!("hall of fame: {}", report["best"].as_array().unwrap().len());
 }

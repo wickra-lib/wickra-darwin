@@ -18,7 +18,7 @@ The canonical spec and a 40-bar candle CSV are also in
 [`data/`](data/) for use with the CLI:
 
 ```bash
-cargo run -p darwin-cli -- --spec examples/data/specs/evolve.json --data examples/data/candles
+cargo run -p wickra-darwin -- --spec examples/data/specs/evolve.json --data examples/data/candles
 ```
 
 ## Per language

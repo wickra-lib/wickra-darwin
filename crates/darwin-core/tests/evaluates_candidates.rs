@@ -20,8 +20,8 @@
 
 use std::collections::BTreeMap;
 
-use darwin_core::{evolve, EvolveSpec};
 use wickra_backtest::Candle;
+use wickra_darwin_core::{evolve, EvolveSpec};
 
 const SPEC: &str = r#"{
     "seed": 11, "population": 10, "generations": 4,
@@ -107,10 +107,10 @@ fn the_hall_of_fame_is_filled() {
 fn a_sampled_strategy_is_one_the_engine_accepts() {
     // The narrow version of the same property, at the seam where it broke: the
     // JSON a genome serialises to has to round-trip into the engine's own type.
-    use darwin_core::genome::to_strategy_spec;
-    use darwin_core::rng::SplitMix64;
-    use darwin_core::search_space::sample_spec;
     use wickra_backtest::StrategySpec;
+    use wickra_darwin_core::genome::to_strategy_spec;
+    use wickra_darwin_core::rng::SplitMix64;
+    use wickra_darwin_core::search_space::sample_spec;
 
     let spec = spec();
     let mut rng = SplitMix64::new(spec.seed);

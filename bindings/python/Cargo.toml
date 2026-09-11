@@ -18,5 +18,5 @@ crate-type = ["cdylib"]
 workspace = true
 
 [dependencies]
-darwin-core = { workspace = true }
+wickra-darwin-core = { workspace = true }
 pyo3 = { version = "0.29", features = ["extension-module", "abi3-py39"] }

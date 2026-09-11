@@ -4,9 +4,9 @@
 //! a well-formed StrategySpec-shaped value.
 
 use libfuzzer_sys::fuzz_target;
-use darwin_core::search_space::{mutate, sample_spec, SearchSpace};
-use darwin_core::genome::{crossover, to_strategy_spec};
-use darwin_core::SplitMix64;
+use wickra_darwin_core::search_space::{mutate, sample_spec, SearchSpace};
+use wickra_darwin_core::genome::{crossover, to_strategy_spec};
+use wickra_darwin_core::SplitMix64;
 
 fuzz_target!(|data: &[u8]| {
     if data.len() < 8 {

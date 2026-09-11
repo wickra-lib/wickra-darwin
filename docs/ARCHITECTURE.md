@@ -1,6 +1,6 @@
 # Architecture
 
-Wickra Darwin is a single data-driven core, `darwin-core`, wrapped by a reference
+Wickra Darwin is a single data-driven core, `wickra-darwin-core`, wrapped by a reference
 CLI and ten language bindings. Everything the search does is reachable through one
 seam: a `Darwin` handle and a `command_json` string.
 
@@ -13,11 +13,11 @@ crates/darwin-bench   criterion micro-benchmarks (backtests/second)
 bindings/{c,python,node,wasm,csharp,go,java,r}   the language surfaces
 ```
 
-`darwin-core` depends on [`wickra-backtest`](https://github.com/wickra-lib/wickra-backtest)
+`wickra-darwin-core` depends on [`wickra-backtest`](https://github.com/wickra-lib/wickra-backtest)
 for the engine that scores each candidate, and re-exports
 `wickra_backtest::StrategySpec` — the genome the search evolves.
 
-## Modules in `darwin-core`
+## Modules in `wickra-darwin-core`
 
 | Module         | Responsibility |
 |----------------|----------------|

@@ -1,5 +1,5 @@
 [package]
-name = "darwin-cli"
+name = "wickra-darwin"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -19,7 +19,7 @@ path = "src/main.rs"
 all-features = true
 
 [dependencies]
-darwin-core = { workspace = true }
+wickra-darwin-core = { workspace = true }
 wickra-backtest = { workspace = true }
 serde_json = { workspace = true }
 clap = { workspace = true }

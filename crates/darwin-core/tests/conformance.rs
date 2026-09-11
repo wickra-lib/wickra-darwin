@@ -3,9 +3,9 @@
 //! indicators and wrong arities, and the SplitMix64 stream is deterministic and
 //! seed-sensitive.
 
-use darwin_core::genome::{IndicatorGene, ParamRange};
-use darwin_core::search_space::{RuleGrammar, SearchSpace};
-use darwin_core::{EvolveSpec, Fitness, SplitMix64};
+use wickra_darwin_core::genome::{IndicatorGene, ParamRange};
+use wickra_darwin_core::search_space::{RuleGrammar, SearchSpace};
+use wickra_darwin_core::{EvolveSpec, Fitness, SplitMix64};
 
 fn json_round_trip<T>(value: &T)
 where

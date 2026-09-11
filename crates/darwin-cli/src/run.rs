@@ -4,8 +4,8 @@ use std::collections::BTreeMap;
 use std::fmt::Write as _;
 use std::io::Read;
 
-use darwin_core::{evolve, EvolveReport, EvolveSpec};
 use wickra_backtest::{data, Candle};
+use wickra_darwin_core::{evolve, EvolveReport, EvolveSpec};
 
 use crate::args::{Args, Format};
 

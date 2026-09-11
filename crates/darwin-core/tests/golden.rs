@@ -11,9 +11,9 @@ use std::collections::BTreeMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use darwin_core::{evolve, EvolveSpec};
 use wickra_backtest::data::load_candles;
 use wickra_backtest::Candle;
+use wickra_darwin_core::{evolve, EvolveSpec};
 
 fn golden_dir() -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../golden")

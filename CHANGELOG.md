@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **The two published crates carried names the release could not upload.**
+  `darwin-core` and `darwin-cli` are outside the org's crates.io token scope,
+  which creates new crates under the `wickra-` prefix only; `cargo publish` on
+  either name returns 403 at upload while `--dry-run` passes, and because the
+  publish jobs run in parallel the release would have landed on PyPI, npm,
+  NuGet, Maven Central and the Go mirror without ever reaching crates.io.
+  `darwin-cli` is also taken -- crates.io folds `-` and `_`, and `darwin_cli`
+  0.1.1 belongs to someone else -- and `release.yml` already published
+  `-p wickra-darwin`, a package that did not exist. The core is now
+  `wickra-darwin-core` and the CLI crate `wickra-darwin`, matching the binary
+  it ships and the shape of every released sibling. Directories keep their
+  names; only the packages and the `wickra_darwin_core` path moved. The
+  same audit ran across the family (xray paid for this with its first tag).
+
 - **`cargo-deny` was set to warn about duplicated crates, so it noted that split
   and moved on.** It is an error now. Only four duplicates exist across this
   workspace and each is a crate part-way through a major release reached through
@@ -133,10 +147,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   project name from another repository; `pip` did not cover
   `/.github/requirements` and `npm` did not cover `/examples/node`.
 
-- **The workspace's own core was pinned as a range.** `darwin-core` was named
+- **The workspace's own core was pinned as a range.** `wickra-darwin-core` was named
   six times as `version = "0.1"` -- a caret range -- and the root manifest
   carried no `[workspace.dependencies]` entry for it at all. A published
-  `darwin-cli` 0.1.0 would have accepted `darwin-core` 0.1.99, a crate resolving
+  `wickra-darwin` 0.1.0 would have accepted `wickra-darwin-core` 0.1.99, a crate resolving
   against a core it was never built against, in a workspace whose whole point is
   that the pieces move together. It also hid the line from `bump_version.py` and
   `check_version_sync.py`, both of which look for the exact version.
@@ -236,10 +250,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Repository scaffold: governance, supply-chain configuration (`deny.toml`,
   `lychee.toml`, `osv-scanner.toml`, `repo-metadata.toml`), the Rust workspace
-  (`darwin-core`, `darwin-cli`, `darwin-bench`) with the language-binding crates,
+  (`wickra-darwin-core`, `wickra-darwin`, `darwin-bench`) with the language-binding crates,
   and the `wickra-backtest` git dependency (the O(1) engine DARWIN evolves
   strategies against).
-- `darwin-core`: the evolutionary search — `EvolveSpec`, `SearchSpace` /
+- `wickra-darwin-core`: the evolutionary search — `EvolveSpec`, `SearchSpace` /
   `RuleGrammar` / `IndicatorGene`, the `StrategySpec` genome with seeded
   `SplitMix64` crossover and mutation, `Fitness` (Sharpe / PnL / Calmar), and the
   `evolve` loop returning a deterministic `EvolveReport` (hall of fame + history).

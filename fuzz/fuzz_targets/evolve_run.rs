@@ -5,7 +5,7 @@
 //! in-band as JSON.
 
 use libfuzzer_sys::fuzz_target;
-use darwin_core::{Darwin, EvolveSpec};
+use wickra_darwin_core::{Darwin, EvolveSpec};
 
 // A fixed, tiny two-symbol universe so the fuzzer varies the spec, not the data.
 const EVOLVE_CMD: &str = r#"{"cmd":"evolve","data":{"AAA":[

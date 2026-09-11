@@ -13,7 +13,7 @@
 use pyo3::exceptions::{PyRuntimeError, PyValueError};
 use pyo3::prelude::*;
 
-use darwin_core::Darwin;
+use wickra_darwin_core::Darwin;
 
 /// An evolutionary search driven by JSON commands.
 ///
@@ -45,7 +45,7 @@ impl PyDarwin {
     /// The library version.
     #[staticmethod]
     fn version() -> &'static str {
-        darwin_core::version()
+        wickra_darwin_core::version()
     }
 }
 

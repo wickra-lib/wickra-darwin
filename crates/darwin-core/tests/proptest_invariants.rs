@@ -6,11 +6,11 @@
 
 use std::collections::BTreeMap;
 
-use darwin_core::genome::{spec_hash, IndicatorGene, ParamRange};
-use darwin_core::search_space::{RuleGrammar, SearchSpace};
-use darwin_core::{evolve, EvolveSpec, Fitness};
 use proptest::prelude::*;
 use wickra_backtest::{Candle, StrategySpec};
+use wickra_darwin_core::genome::{spec_hash, IndicatorGene, ParamRange};
+use wickra_darwin_core::search_space::{RuleGrammar, SearchSpace};
+use wickra_darwin_core::{evolve, EvolveSpec, Fitness};
 
 fn candles(n: usize, base: f64, amp: f64, k: f64, drift: f64) -> Vec<Candle> {
     (0..n)

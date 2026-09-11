@@ -8,7 +8,7 @@ use napi_derive::napi;
 
 /// An evolutionary search driven by JSON commands.
 #[napi]
-pub struct Darwin(darwin_core::Darwin);
+pub struct Darwin(wickra_darwin_core::Darwin);
 
 #[napi]
 impl Darwin {
@@ -17,7 +17,7 @@ impl Darwin {
     #[napi(constructor)]
     #[allow(clippy::needless_pass_by_value)]
     pub fn new(spec_json: String) -> napi::Result<Self> {
-        darwin_core::Darwin::new(&spec_json)
+        wickra_darwin_core::Darwin::new(&spec_json)
             .map(Darwin)
             .map_err(|e| napi::Error::from_reason(e.to_string()))
     }
@@ -35,6 +35,6 @@ impl Darwin {
     /// The crate version.
     #[napi]
     pub fn version(&self) -> &'static str {
-        darwin_core::version()
+        wickra_darwin_core::version()
     }
 }

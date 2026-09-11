@@ -1,5 +1,5 @@
 #![allow(clippy::cast_precision_loss)]
-//! Criterion benchmarks for `darwin_core::evolve`.
+//! Criterion benchmarks for `wickra_darwin_core::evolve`.
 //!
 //! The default build measures the parallel engine; `--no-default-features`
 //! measures the single-threaded path (what WASM and the golden fixtures use).
@@ -9,9 +9,9 @@
 use std::collections::BTreeMap;
 
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
-use darwin_core::search_space::{RuleGrammar, SearchSpace};
-use darwin_core::{evolve, EvolveSpec, Fitness, IndicatorGene, ParamRange};
 use wickra_backtest::Candle;
+use wickra_darwin_core::search_space::{RuleGrammar, SearchSpace};
+use wickra_darwin_core::{evolve, EvolveSpec, Fitness, IndicatorGene, ParamRange};
 
 const BARS: usize = 200;
 

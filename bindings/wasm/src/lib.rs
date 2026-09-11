@@ -12,7 +12,7 @@
 
 use wasm_bindgen::prelude::*;
 
-use darwin_core::Darwin as CoreDarwin;
+use wickra_darwin_core::Darwin as CoreDarwin;
 
 /// An evolutionary search driven by JSON commands.
 #[wasm_bindgen]
@@ -41,12 +41,12 @@ impl Darwin {
     /// The library version.
     #[wasm_bindgen(js_name = version)]
     pub fn instance_version(&self) -> String {
-        darwin_core::version().to_string()
+        wickra_darwin_core::version().to_string()
     }
 }
 
 /// The library version.
 #[wasm_bindgen]
 pub fn version() -> String {
-    darwin_core::version().to_string()
+    wickra_darwin_core::version().to_string()
 }

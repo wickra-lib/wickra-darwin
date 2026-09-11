@@ -10,7 +10,7 @@
 //! execute can also be searched, and the arity comes from the registry rather
 //! than from an assumption that every indicator takes one period.
 
-use darwin_core::search_space::indicator_kind;
+use wickra_darwin_core::search_space::indicator_kind;
 
 #[test]
 fn the_four_the_allowlist_carried_still_resolve() {

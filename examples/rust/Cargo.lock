@@ -28,17 +28,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "61803da095bee82a81bb1a452ecc25d3b2f1416d1897eb86430c6159ef717c17"
 
 [[package]]
-name = "darwin-core"
-version = "0.1.0"
-dependencies = [
- "serde",
- "serde_json",
- "thiserror",
- "toml",
- "wickra-backtest",
-]
-
-[[package]]
 name = "dyn-clone"
 version = "1.0.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -330,11 +319,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "wickra-darwin-core"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "thiserror",
+ "toml",
+ "wickra-backtest",
+]
+
+[[package]]
 name = "wickra-darwin-example"
 version = "0.1.0"
 dependencies = [
- "darwin-core",
  "serde_json",
+ "wickra-darwin-core",
 ]
 
 [[package]]

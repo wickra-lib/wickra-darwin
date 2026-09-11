@@ -36,7 +36,7 @@ indicator registry.**
 > the O(1)-per-tick engine, so the search evaluates candidates orders of magnitude
 > faster than pandas-based tooling.
 
-Wickra Darwin is one data-driven core, `darwin-core`: a population of
+Wickra Darwin is one data-driven core, `wickra-darwin-core`: a population of
 `StrategySpec` genomes is evolved with genetic operators (mutation + crossover
 across the indicator search space) and each candidate is scored by
 `wickra-backtest`. Because the engine is O(1) per tick, the loop sustains
@@ -46,7 +46,7 @@ exposed as a **JSON-over-C-ABI data API** (`command_json`) in **Rust, Python,
 Node.js, WASM, C, C++, C#, Go, Java and R**, plus a reference CLI.
 
 ```rust
-use darwin_core::{evolve, EvolveSpec};
+use wickra_darwin_core::{evolve, EvolveSpec};
 
 // A bounded search: three indicator genes over the registry, scored by Sharpe.
 let spec: EvolveSpec = serde_json::from_str(r#"{

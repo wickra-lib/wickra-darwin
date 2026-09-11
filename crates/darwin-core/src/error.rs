@@ -1,6 +1,6 @@
 //! Error and result types for the evolutionary core.
 
-/// Errors produced by `darwin-core`.
+/// Errors produced by `wickra-darwin-core`.
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     /// A JSON or TOML document failed to parse.

@@ -51,7 +51,7 @@ from the current output:
 
 ```bash
 rm golden/expected/<name>.json
-cargo test -p darwin-core --test golden
+cargo test -p wickra-darwin-core --test golden
 ```
 
 The report's `history` array carries the per-generation `(best, mean, worst,

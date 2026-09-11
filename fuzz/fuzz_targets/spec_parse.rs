@@ -4,7 +4,7 @@
 //! successfully parsed spec re-serializes and re-parses to an equal value.
 
 use libfuzzer_sys::fuzz_target;
-use darwin_core::EvolveSpec;
+use wickra_darwin_core::EvolveSpec;
 
 fuzz_target!(|data: &[u8]| {
     let Ok(text) = std::str::from_utf8(data) else {

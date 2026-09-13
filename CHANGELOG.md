@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-09-14
+
 ### Fixed
 
 - **CI is green again.** The napi glue (`bindings/node/index.js`) was stale
@@ -311,4 +313,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   evolution, genome, fitness, determinism, cookbook); `BENCHMARKS.md` with
   measured backtests-per-second figures.
 
-[Unreleased]: https://github.com/wickra-lib/wickra-darwin/commits/main
+[Unreleased]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/wickra-lib/wickra-darwin/releases/tag/v0.1.0

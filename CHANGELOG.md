@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **CI is green again.** The napi glue (`bindings/node/index.js`) was stale
+  against the locked CLI, so the in-sync check failed on every Node job; it
+  is regenerated. `search_space.rs` used a `match` where clippy 1.98 wants
+  `?`. The Examples job ran `cargo run -p wickra-darwin-example` against a
+  crate that is not a workspace member, pointed `dotnet run` at a project
+  directory that does not exist, and the Node and C# examples depended on
+  the npm and NuGet packages, which are not published yet: the Rust example
+  runs by manifest path, the C# one is `Evolve`, and both examples now
+  reference the binding in this checkout (`file:` / `ProjectReference`),
+  which is also what un-breaks CodeQL's C# autobuild. osv-scanner runs with
+  `--no-resolve`, since the Java example's dependency on the unpublished
+  org.wickra artefact cannot be resolved from Maven Central until the
+  release exists.
 - **The two published crates carried names the release could not upload.**
   `darwin-core` and `darwin-cli` are outside the org's crates.io token scope,
   which creates new crates under the `wickra-` prefix only; `cargo publish` on

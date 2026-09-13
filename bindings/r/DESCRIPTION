@@ -14,4 +14,4 @@ Encoding: UTF-8
 NeedsCompilation: yes
 SystemRequirements: the wickra-darwin C ABI shared library (WKDARWIN_LIB)
     and its header (WKDARWIN_INC).
-RoxygenNote: 7.3.2
+Config/roxygen2/version: 8.0.0

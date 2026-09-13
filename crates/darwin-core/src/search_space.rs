@@ -70,10 +70,8 @@ fn canonical_name(name: &str) -> Option<String> {
         return Some(name.to_string());
     }
     let mut chars = name.chars();
-    let capitalised: String = match chars.next() {
-        Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
-        None => return None,
-    };
+    let first = chars.next()?;
+    let capitalised: String = first.to_uppercase().collect::<String>() + chars.as_str();
     arity_of(&capitalised).is_some().then_some(capitalised)
 }
 

@@ -5,5 +5,5 @@
   "description": "A runnable Node.js example for wickra-darwin.",
   "type": "commonjs",
   "scripts": { "start": "node evolve.js" },
-  "dependencies": { "wickra-darwin": "^0.1.0" }
+  "dependencies": { "wickra-darwin": "file:../../bindings/node" }
 }

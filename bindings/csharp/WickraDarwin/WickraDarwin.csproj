@@ -10,7 +10,7 @@
     <AssemblyName>Wickra.Darwin</AssemblyName>
 
     <PackageId>Wickra.Darwin</PackageId>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <Authors>kingchenc</Authors>
     <Description>Evolutionary strategy search over Wickra strategy specs for .NET over the Wickra C ABI: a seeded EvolveSpec drives a byte-identical genetic search across every language binding.</Description>
     <PackageLicenseExpression>MIT OR Apache-2.0</PackageLicenseExpression>

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-09-14
+
 ### Fixed
 
 - **The R package installs on macOS and Windows.** r-universe built the
@@ -20,6 +22,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   its `_abi` name, the dylib and the `.so`), `Makevars.win` links the import
   library `configure.win` builds, a shipped `tests/smoke.R` runs inside the
   tarball, and `DESCRIPTION` states the R floor.
+- **Floats re-parse to the value that was printed.** `serde_json` now runs
+  with `float_roundtrip`: its default parser is fast and may land a ULP off,
+  so a spec's float could come back as a neighbour and the spec hash, which
+  hashes the canonical text, would differ for one logical spec. The
+  `spec_parse` fuzz target asserts exactly this round-trip.
 
 ## [0.1.1] - 2026-09-14
 
@@ -338,6 +345,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   evolution, genome, fitness, determinism, cookbook); `BENCHMARKS.md` with
   measured backtests-per-second figures.
 
-[Unreleased]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/wickra-lib/wickra-darwin/releases/tag/v0.1.0

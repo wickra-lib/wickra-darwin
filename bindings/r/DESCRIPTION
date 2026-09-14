@@ -1,7 +1,7 @@
 Package: wickradarwin
 Type: Package
 Title: Evolutionary Strategy Search over Wickra Strategy Specs
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("kingchenc", role = c("aut", "cre"), email = "support@wickra.org")
 Description: R bindings for wickra-darwin over its C ABI hub: a seeded EvolveSpec
     drives a byte-identical genetic search over Wickra strategy specs - the same

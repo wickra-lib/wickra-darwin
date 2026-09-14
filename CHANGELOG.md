@@ -22,6 +22,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   its `_abi` name, the dylib and the `.so`), `Makevars.win` links the import
   library `configure.win` builds, a shipped `tests/smoke.R` runs inside the
   tarball, and `DESCRIPTION` states the R floor.
+- **Floats re-parse to the value that was printed.** `serde_json` now runs
+  with `float_roundtrip`: its default parser is fast and may land a ULP off,
+  so a spec's float could come back as a neighbour and the spec hash, which
+  hashes the canonical text, would differ for one logical spec. The
+  `spec_parse` fuzz target asserts exactly this round-trip.
 
 ## [0.1.1] - 2026-09-14
 

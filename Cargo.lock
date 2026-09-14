@@ -1432,6 +1432,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "wickra-darwin-example"
+version = "0.1.0"
+dependencies = [
+ "serde_json",
+ "wickra-darwin-core",
+]
+
+[[package]]
 name = "wickra-darwin-node"
 version = "0.1.0"
 dependencies = [

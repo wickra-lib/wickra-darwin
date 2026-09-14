@@ -7,6 +7,8 @@
 //! cargo run --manifest-path examples/rust/Cargo.toml
 //! ```
 
+use std::fmt::Write as _;
+
 use wickra_darwin_core::Darwin;
 
 const SPEC: &str = r#"{
@@ -31,10 +33,12 @@ fn evolve_command() -> String {
         if i > 0 {
             bars.push(',');
         }
-        bars.push_str(&format!(
-            "{{\"time\":{},\"open\":{open:.3},\"high\":{high:.3},\"low\":{low:.3},\"close\":{close:.3},\"volume\":1000}}",
-            1_700_000_000 + i64::from(i) * 3600
-        ));
+        let time = 1_700_000_000 + i64::from(i) * 3600;
+        // Writing into a String cannot fail; the Result is the trait's, not ours.
+        let _ = write!(
+            bars,
+            "{{\"time\":{time},\"open\":{open:.3},\"high\":{high:.3},\"low\":{low:.3},\"close\":{close:.3},\"volume\":1000}}"
+        );
     }
     format!("{{\"cmd\":\"evolve\",\"data\":{{\"SYM\":[{bars}]}}}}")
 }
@@ -45,6 +49,9 @@ fn main() {
         serde_json::from_str(&darwin.command_json(&evolve_command()).expect("evolve")).unwrap();
 
     println!("wickra-darwin {}", wickra_darwin_core::version());
-    println!("generations: {}", report["history"].as_array().unwrap().len());
+    println!(
+        "generations: {}",
+        report["history"].as_array().unwrap().len()
+    );
     println!("hall of fame: {}", report["best"].as_array().unwrap().len());
 }

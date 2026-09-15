@@ -46,7 +46,7 @@ byte-identical matrix either way.
 - **Production code only** — no mocks outside `#[cfg(test)]`, no TODO stubs, and
   no defensive branches that can never run (they fail coverage).
 
-## Adding a feature or a label
+## Adding a rule grammar or a fitness metric
 
 The spec is a serde struct, so extending it means adding a variant, not a
 closure. A new **rule grammar** is a variant of `RuleGrammar` in

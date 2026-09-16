@@ -1,4 +1,4 @@
-# Golden corpus
+# Golden fixtures
 
 The cross-language golden: one blessed `EvolveReport` JSON per spec, regenerated
 byte-for-byte by the Rust core and reproduced verbatim by every language binding.

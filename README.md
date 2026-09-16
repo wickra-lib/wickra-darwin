@@ -19,18 +19,16 @@
 [![OpenSSF Scorecard](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/scorecard.svg)](https://scorecard.dev/viewer/?uri=github.com/wickra-lib/wickra-darwin)
 [![OpenSSF Best Practices](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/best-practices.svg)](https://www.bestpractices.dev)
 [![Build provenance](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/provenance.svg)](https://github.com/wickra-lib/wickra-darwin/attestations)
-[![Docs](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/docs.svg)](https://wickra.org)
+[![Docs](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/docs.svg)](https://darwin.wickra.org)
 [![Verified across 10 languages](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/verified.svg)](golden/)
 
 ---
-
-# Wickra Darwin
 
 **Evolutionary strategy search at hundreds of thousands of backtests per second
 — mutates and crosses JSON strategy specs to brute-force alpha across the whole
 indicator registry.**
 
-> **Part of the [Wickra ecosystem](https://github.com/wickra-lib):** the same data-driven core and ten-language binding surface also power [wickra-exchange](https://github.com/wickra-lib/wickra-exchange), [wickra-backtest](https://github.com/wickra-lib/wickra-backtest), [wickra-terminal](https://github.com/wickra-lib/wickra-terminal) and 20 more — see [the full list](https://github.com/wickra-lib).
+**Part of the [Wickra ecosystem](#ecosystem):** the same data-driven core and ten-language binding surface also power [wickra-exchange](https://github.com/wickra-lib/wickra-exchange), [wickra-backtest](https://github.com/wickra-lib/wickra-backtest), [wickra-terminal](https://github.com/wickra-lib/wickra-terminal) and 20 more — see [the full list](https://github.com/wickra-lib).
 > the same [`StrategySpec`](https://github.com/wickra-lib/wickra-backtest) that
 > `wickra-backtest` runs — mutation and crossover over that JSON genome, scored by
 > the O(1)-per-tick engine, so the search evaluates candidates orders of magnitude
@@ -71,6 +69,15 @@ let report = evolve(&data, &spec)?;   // same seed, same winner, every time
 Early development (0.1.0). The evolutionary core, the reference CLI,
 the ten-language binding surface, the golden corpus and the full CI matrix are in
 place; 0.1.0 is the first published release.
+
+## Documentation
+
+- [ARCHITECTURE.md](docs/ARCHITECTURE.md) — the crates and the evolution pipeline.
+- [EVOLUTION.md](docs/EVOLUTION.md) — the loop: sampling, selection, elitism.
+- [GENOME.md](docs/GENOME.md) — the `StrategySpec` genome, mutation and crossover.
+- [FITNESS.md](docs/FITNESS.md) — the Sharpe / PnL / Calmar objectives.
+- [DETERMINISM.md](docs/DETERMINISM.md) — why the report is reproducible everywhere.
+- [Cookbook.md](docs/Cookbook.md) — practical recipes.
 
 ## How it works
 
@@ -131,15 +138,6 @@ print(report["best"][0]["spec_hash"] if report["best"] else "no survivors")
 
 See [`examples/`](examples/) for the same program in all ten languages.
 
-## Documentation
-
-- [ARCHITECTURE.md](docs/ARCHITECTURE.md) — the crates and the evolution pipeline.
-- [EVOLUTION.md](docs/EVOLUTION.md) — the loop: sampling, selection, elitism.
-- [GENOME.md](docs/GENOME.md) — the `StrategySpec` genome, mutation and crossover.
-- [FITNESS.md](docs/FITNESS.md) — the Sharpe / PnL / Calmar objectives.
-- [DETERMINISM.md](docs/DETERMINISM.md) — why the report is reproducible everywhere.
-- [Cookbook.md](docs/Cookbook.md) — practical recipes.
-
 ## Project layout
 
 ```
@@ -181,12 +179,6 @@ produce the identical bytes; that corpus is the cross-language contract, not a
 per-language approximation. `python scripts/check_binding_surface.py` asserts the
 ten surfaces stayed in step.
 
-## Benchmarks
-
-The headline figure is **backtests per second** — the rate at which the loop
-scores candidate specs through the `wickra-backtest` engine. See
-[BENCHMARKS.md](BENCHMARKS.md); reproduce with `cargo bench -p darwin-bench`.
-
 ## Requirements
 
 - **Rust 1.86+** — the workspace MSRV; the Node binding needs **Rust 1.88**.
@@ -202,15 +194,11 @@ Darwin depends on `wickra-backtest` for the engine it scores candidates with and
 for the name -> indicator registry the search space is drawn from, and on
 `wickra-core` for the indicator types. Both come from crates.io.
 
-## Security
+## Benchmarks
 
-See [SECURITY.md](SECURITY.md) and [THREAT_MODEL.md](THREAT_MODEL.md). Search
-runs on untrusted spec JSON — resource limits (population × generations) bound
-the work.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+The headline figure is **backtests per second** — the rate at which the loop
+scores candidate specs through the `wickra-backtest` engine. See
+[BENCHMARKS.md](BENCHMARKS.md); reproduce with `cargo bench -p darwin-bench`.
 
 ## Ecosystem
 
@@ -247,40 +235,32 @@ with the in-browser demo and the benchmark figures, is at
 reference is at [docs.wickra.org](https://docs.wickra.org) and the org landing
 page at [wickra.org](https://wickra.org).
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Security
+
+See [SECURITY.md](SECURITY.md) and [THREAT_MODEL.md](THREAT_MODEL.md). Search
+runs on untrusted spec JSON — resource limits (population × generations) bound
+the work.
+
 ## License
 
-Dual-licensed under either of
+Licensed under either of
 
-- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE))
-- MIT license ([LICENSE-MIT](LICENSE-MIT))
+- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or
+  <http://www.apache.org/licenses/LICENSE-2.0>)
+- MIT license ([LICENSE-MIT](LICENSE-MIT) or <http://opensource.org/licenses/MIT>)
 
-at your option. Unless you explicitly state otherwise, any contribution
-intentionally submitted for inclusion in this work, as defined in the Apache-2.0
-license, shall be dual-licensed as above, without any additional terms or
-conditions.
+at your option. Use it, fork it, modify it, redistribute it — commercially or
+not — file issues, send pull requests; all welcome.
 
----
+### Contribution
 
-<p align="center">
-  <a href="https://github.com/wickra-lib/wickra-darwin">
-    <img alt="GitHub stars" src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/stars.svg">
-  </a>
-  <a href="https://github.com/wickra-lib/wickra-darwin/network/members">
-    <img alt="GitHub forks" src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/forks.svg">
-  </a>
-  <a href="https://github.com/wickra-lib/wickra-darwin/issues">
-    <img alt="GitHub issues" src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/issues.svg">
-  </a>
-</p>
-
-<p align="center">
-  Built on <a href="https://github.com/wickra-lib/wickra">Wickra</a>. If it saved you time, the cheapest way to say thanks is to ⭐ the repo.
-</p>
-
-<p align="center">
-  <img alt="wickra-darwin star history" width="640"
-       src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/star-history.svg">
-</p>
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.
 
 ## Disclaimer
 

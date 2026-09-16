@@ -66,9 +66,9 @@ let report = evolve(&data, &spec)?;   // same seed, same winner, every time
 
 ## Status
 
-Early development (0.1.0). The evolutionary core, the reference CLI,
-the ten-language binding surface, the golden corpus and the full CI matrix are in
-place; 0.1.0 is the first published release.
+**0.1.2 — the current release.** The evolutionary core, the reference CLI, the
+ten-language binding surface, the golden corpus and the full CI matrix are in
+place.
 
 ## Documentation
 

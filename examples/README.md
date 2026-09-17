@@ -11,7 +11,7 @@ Runnable examples in every Wickra Darwin language. Each one builds the same
 evolutionary search, and prints the same summary — the cross-language guarantee:
 
 ```
-wickra-darwin 0.1.2
+wickra-darwin 0.1.3
 generations: 5
 hall of fame: 0
 ```

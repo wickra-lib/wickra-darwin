@@ -4,6 +4,18 @@ Runnable examples in every Wickra Darwin language. Each one builds the same
 16-bar deterministic universe and the same seeded `EvolveSpec`, runs the
 evolutionary search, and prints the same summary — the cross-language guarantee:
 
+## What every example prints
+
+Runnable examples in every Wickra Darwin language. Each one builds the same
+16-bar deterministic universe and the same seeded `EvolveSpec`, runs the
+evolutionary search, and prints the same summary — the cross-language guarantee:
+
+```
+wickra-darwin 0.1.2
+generations: 5
+hall of fame: 0
+```
+
 ## Rust — `examples/rust/`
 
 As the CI examples job runs it, from the repository root:

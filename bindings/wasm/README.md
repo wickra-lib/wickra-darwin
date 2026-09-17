@@ -37,7 +37,7 @@ The output lands in `pkg/`.
 ## Quick start
 
 ```js
-import init, { Darwin } from "./pkg/wickra_darwin_wasm.js";
+import init, { Darwin } from "wickra-darwin-wasm";
 
 await init();
 

@@ -28,11 +28,15 @@
 — mutates and crosses JSON strategy specs to brute-force alpha across the whole
 indicator registry.**
 
+> **▶ Live demos:** the backtester compiled to WebAssembly, an equity curve building bar by bar — **[backtest-live.wickra.org](https://backtest-live.wickra.org)**;
+> one StrategySpec side by side in Python, Rust, JS and Go — **[playground.wickra.org](https://playground.wickra.org)**;
+> all 514 indicators of the core over a real Binance feed — **[live.wickra.org](https://live.wickra.org)**. Zero backend, all of them.
+
 **Part of the [Wickra ecosystem](#ecosystem):** the same data-driven core and ten-language binding surface also power [wickra-exchange](https://github.com/wickra-lib/wickra-exchange), [wickra-backtest](https://github.com/wickra-lib/wickra-backtest), [wickra-terminal](https://github.com/wickra-lib/wickra-terminal) and 20 more — see [the full list](https://github.com/wickra-lib).
-> the same [`StrategySpec`](https://github.com/wickra-lib/wickra-backtest) that
-> `wickra-backtest` runs — mutation and crossover over that JSON genome, scored by
-> the O(1)-per-tick engine, so the search evaluates candidates orders of magnitude
-> faster than pandas-based tooling.
+the same [`StrategySpec`](https://github.com/wickra-lib/wickra-backtest) that
+`wickra-backtest` runs — mutation and crossover over that JSON genome, scored by
+the O(1)-per-tick engine, so the search evaluates candidates orders of magnitude
+faster than pandas-based tooling.
 
 Wickra Darwin is one data-driven core, `wickra-darwin-core`: a population of
 `StrategySpec` genomes is evolved with genetic operators (mutation + crossover

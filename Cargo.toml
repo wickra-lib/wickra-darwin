@@ -15,7 +15,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.1.2"
+version = "0.1.3"
 edition = "2021"
 rust-version = "1.86"
 license = "MIT OR Apache-2.0"
@@ -24,7 +24,7 @@ authors = ["wickra-lib"]
 
 [workspace.dependencies]
 # Workspace-internal core, referenced by the CLI, bench and bindings.
-wickra-darwin-core = { version = "0.1.2", path = "crates/darwin-core" }
+wickra-darwin-core = { version = "0.1.3", path = "crates/darwin-core" }
 serde = { version = "1", features = ["derive"] }
 # float_roundtrip: serde_json's default float parser is fast and may be a ULP
 # off, so a float a spec serialises can re-parse to a neighbour. The spec hash

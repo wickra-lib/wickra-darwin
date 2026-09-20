@@ -4,14 +4,14 @@
 
 [![CI](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/ci.svg)](https://github.com/wickra-lib/wickra-darwin/actions/workflows/ci.yml)
 [![codecov](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/codecov.svg)](https://codecov.io/gh/wickra-lib/wickra-darwin)
-[![Go module](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/go.svg)](https://pkg.go.dev/github.com/wickra-lib/wickra-darwin/bindings/go)
+[![Go module](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/go.svg)](https://pkg.go.dev/github.com/wickra-lib/wickra-darwin-go)
 [![License: MIT OR Apache-2.0](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-darwin/license.svg)](https://github.com/wickra-lib/wickra-darwin#license)
 
 # Wickra Darwin — Go
 
 ---
 
-**Part of the [Wickra ecosystem](#ecosystem): — for Go. `go get github.com/wickra-lib/wickra-darwin/bindings/go` — over the C ABI via cgo, prebuilt library bundled in the module.**
+**Part of the [Wickra ecosystem](#ecosystem): — for Go. `go get github.com/wickra-lib/wickra-darwin-go` — over the C ABI via cgo, prebuilt library bundled in the module.**
 
 Go bindings for the Wickra evolutionary strategy search over its C ABI hub via
 cgo. A `Darwin` is built from a spec JSON and driven over a JSON boundary, so the

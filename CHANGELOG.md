@@ -7,6 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-09-23
+
+A maintenance release: the evolutionary search and its bindings are unchanged.
+It publishes the refreshed dependency tree and toolchain pins.
+
+### Added
+
+- **The Node binding reports which artifact it loaded.** The loader generated
+  by `@napi-rs/cli` 3.10.4 exports `__napiBindingTarget` -- `'native'` for the
+  native addon, otherwise the WASI flavor it resolved -- and follows a
+  `NAPI_RS_NATIVE_LIBRARY_PATH` override to a WASI loader instead of
+  misreporting it as native. Typed in `index.d.ts`.
+
+### Changed
+
+- **Built on wickra-core 1.0.5.** The lock takes the indicator core's latest
+  release; the `1.0` requirement already admitted it.
+- **Third-party dependencies refreshed.** `Cargo.lock` takes 52 crates to their
+  newest semver-compatible versions, run across the family in one pass so every
+  repository resolves the same day's versions. No manifest changed.
+- **`@napi-rs/cli` 3.10.4** for the Node binding, the family's line.
+- **uv 0.12.18** for the lockfile bootstrap in `scripts/update-lockfiles.sh`,
+  with all four platform checksums moved together.
+- **The README's static badges are served by the organization** rather than
+  hot-linked from shields.io, so they no longer break when shields is down.
+
+### Fixed
+
+- **The Go README names the published module.** Its badge and `go get` line
+  pointed at the in-repo path `github.com/wickra-lib/wickra-darwin/bindings/go`,
+  which the Go proxy never serves; they now name the mirror
+  `github.com/wickra-lib/wickra-darwin-go`, as the other bindings' READMEs do.
+
+### Tests
+
+- **The command envelope and the config wrapper are covered from Rust.**
+  `command_json` is driven through set-spec, evolve and best, rebinding and
+  every malformed envelope; a config reads as JSON and as TOML and malformed
+  input is refused in both; the version pair names the crate and its engine.
+
 ## [0.1.3] - 2026-09-17
 
 ### Fixed
@@ -397,7 +437,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   evolution, genome, fitness, determinism, cookbook); `BENCHMARKS.md` with
   measured backtests-per-second figures.
 
-[Unreleased]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.3...HEAD
+[Unreleased]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.0...v0.1.1

@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "wickra-darwin"
-version = "0.1.3"
+version = "0.1.4"
 description = "Evolutionary strategy search over Wickra strategy specs — mutate and cross JSON specs, scored by the O(1) backtest engine."
 readme = "README.md"
 license = "MIT OR Apache-2.0"

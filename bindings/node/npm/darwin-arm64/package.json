@@ -1,6 +1,6 @@
 {
   "name": "wickra-darwin-darwin-arm64",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Native binding for wickra-darwin (macOS arm64). Installed automatically as an optional dependency of wickra-darwin on matching platforms.",
   "main": "wickra-darwin.darwin-arm64.node",
   "files": [

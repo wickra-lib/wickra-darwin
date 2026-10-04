@@ -62,7 +62,7 @@ fn a_malformed_spec_is_refused_at_construction() {
     let Err(err) = Darwin::new("{ not json") else {
         panic!("invalid JSON is refused");
     };
-    assert!(!err.to_string().is_empty());
+    assert_ne!(err.to_string(), "");
 }
 
 #[test]
@@ -137,7 +137,7 @@ fn set_spec_rebinds_the_handle() {
     assert!(handle
         .command_json(&json!({ "cmd": "evolve", "data": data }).to_string())
         .is_ok());
-    assert!(!handle.best(1).expect("a run has happened").is_empty());
+    assert_ne!(handle.best(1).expect("a run has happened"), Vec::new());
 }
 
 #[test]
@@ -172,5 +172,5 @@ fn every_malformed_envelope_is_named() {
     let err = handle
         .command_json(r#"{"cmd":"evolve","data":{"sym":[{"open":1}]}}"#)
         .expect_err("evolve over non-candles is refused");
-    assert!(!err.to_string().is_empty());
+    assert_ne!(err.to_string(), "");
 }

@@ -76,9 +76,9 @@ max = 60
 #[test]
 fn malformed_configs_are_refused_in_both_formats() {
     let json_err = Config::from_json("{ not json").expect_err("malformed JSON is refused");
-    assert!(!json_err.to_string().is_empty());
+    assert_ne!(json_err.to_string(), "");
     let toml_err = Config::from_toml("[spec\nbroken").expect_err("malformed TOML is refused");
-    assert!(!toml_err.to_string().is_empty());
+    assert_ne!(toml_err.to_string(), "");
     // A well-formed document that is not a config is refused too.
     assert!(Config::from_json(r#"{"nope":1}"#).is_err());
 }

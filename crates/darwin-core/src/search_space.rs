@@ -42,7 +42,7 @@ fn default_max_conditions() -> usize {
 /// This was a four-name allowlist (`sma`, `ema`, `rsi`, `atr`) mapping onto the
 /// `wickra-core` type names, while the README described searching the whole
 /// indicator space. Every other name was rejected, so the space the engine could
-/// actually reach was four indicators wide, against the 497 names the registry
+/// actually reach was four indicators wide, against every name the registry
 /// resolves.
 ///
 /// The registry is the allowlist now: it knows both halves of the answer, and

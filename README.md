@@ -70,7 +70,7 @@ let report = evolve(&data, &spec)?;   // same seed, same winner, every time
 
 ## Status
 
-**0.2.0 — the current release.** The evolutionary core, the reference CLI, the
+**0.2.1 — the current release.** The evolutionary core, the reference CLI, the
 ten-language binding surface, the golden corpus and the full CI matrix are in
 place.
 

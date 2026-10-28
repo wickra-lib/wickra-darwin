@@ -341,7 +341,7 @@ checksum = "914a755b7c2d4af2bdcff7ce1739e2db9a1b81a9b07123d8015786ae03c0980d"
 
 [[package]]
 name = "darwin-bench"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "codspeed-criterion-compat",
  "wickra-backtest",
@@ -1424,7 +1424,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-darwin"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "clap",
  "serde_json",
@@ -1434,7 +1434,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-darwin-c"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "serde_json",
  "wickra-darwin-core",
@@ -1442,7 +1442,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-darwin-core"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "proptest",
  "rayon",
@@ -1455,7 +1455,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-darwin-example"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "serde_json",
  "wickra-darwin-core",
@@ -1463,7 +1463,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-darwin-node"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "napi",
  "napi-build",
@@ -1473,7 +1473,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-darwin-python"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "pyo3",
  "wickra-darwin-core",
@@ -1481,7 +1481,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-darwin-wasm"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "wasm-bindgen",
  "wickra-darwin-core",

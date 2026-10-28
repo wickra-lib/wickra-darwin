@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-28
+
+A maintenance release: the evolution engine and its results are unchanged.
+
+### Changed
+
+- **uv 0.13.5** for the lockfile bootstrap in `scripts/update-lockfiles.sh`.
+- **The ecosystem list quotes the backtest registry's count** (495) for the
+  products that resolve indicators through it, rather than the core's 514.
+
 ## [0.2.0] - 2026-10-06
 
 A follow-up release on the wickra 2.0 family.
@@ -484,7 +494,8 @@ It publishes the refreshed dependency tree and toolchain pins.
   evolution, genome, fitness, determinism, cookbook); `BENCHMARKS.md` with
   measured backtests-per-second figures.
 
-[Unreleased]: https://github.com/wickra-lib/wickra-darwin/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/wickra-lib/wickra-darwin/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/wickra-lib/wickra-darwin/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.5...v0.2.0
 [0.1.5]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/wickra-lib/wickra-darwin/compare/v0.1.3...v0.1.4

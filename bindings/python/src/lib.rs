@@ -51,7 +51,8 @@ impl PyDarwin {
 
 /// The native module (`wickra_darwin._wickra_darwin`).
 #[pymodule]
-fn _wickra_darwin(module: &Bound<'_, PyModule>) -> PyResult<()> {
+#[pyo3(name = "_wickra_darwin")]
+fn wickra_darwin_extension(module: &Bound<'_, PyModule>) -> PyResult<()> {
     module.add("__version__", env!("CARGO_PKG_VERSION"))?;
     module.add_class::<PyDarwin>()?;
     Ok(())
